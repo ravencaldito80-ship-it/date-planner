@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Planner</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom right, #ffe6f0, #fff5fa);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      width: 90%;
+      max-width: 500px;
+      transition: 0.3s;
+    }
+
+    h1 {
+      color: #ff4f87;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+    }
+
+    .emoji {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    button {
+      border: none;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    #yesBtn {
+      background: #ff4f87;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.08);
+      background: #ff2f72;
+    }
+
+    #noBtn {
+      background: #ddd;
+      color: #333;
+      position: absolute;
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      top: 20px;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-size: 20px;
+      color: #ff4f87;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="hearts">
+      <span>💖</span>
+      <span>🩶</span>
+      <span>🩶</span>
+      <span>🩶</span>
+    </div>
+
+    <div class="emoji">🎉</div>
+
+    <h1 id="title">Will you go out with me?</h1>
+
+    <p id="message">I even made a whole webpage for you 😭</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 😢</button>
+    </div>
+  </div>
+
+  <script>
+   
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.getElementById('yesBtn');
+  const title = document.getElementById('title');
+  const message = document.getElementById('message');
+
+  noBtn.addEventListener('mouseover', () => {
+    const x = Math.random() * 300 - 150;
+    const y = Math.random() * 300 - 150;
+
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  yesBtn.addEventListener('click', () => {
+    document.querySelector('.container').innerHTML = `
+      <div class="hearts">
+        <span>💖</span>
+        <span>💖</span>
+        <span>💖</span>
+        <span>💖</span>
+      </div>
+
+      <div class="emoji">🥰</div>
+
+      <h1 style="color:#ff4f87;">Date Planner 💕</h1>
+
+      <p>
+        YAY! Since you said yes, let's plan out date ✌️😳💖
+      </p>
+
+      <form id="dateForm">
+        <div style="margin-bottom:15px;">
+          <label><b>📅 Date:</b></label><br><br>
+          <input
+            type="date"
+            id="date"
+            required
+            style="padding:10px; width:80%; border-radius:10px; border:1px solid #ccc;"
+          >
+        </div>
+
+        <div style="margin-bottom:15px;">
+          <label><b>🕒 Time:</b></label><br><br>
+          <input
+            type="time"
+            id="time"
+            required
+            style="padding:10px; width:80%; border-radius:10px; border:1px solid #ccc;"
+          >
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <label><b>📍 Where do you want to go?</b></label><br><br>
+          <input
+            type="text"
+            id="place"
+            placeholder="Type the place here..."
+            required
+            style="padding:10px; width:80%; border-radius:10px; border:1px solid #ccc;"
+          >
+        </div>
+
+        <button
+          type="submit"
+          style="
+            background:#ff4f87;
+            color:white;
+            padding:14px 28px;
+            border:none;
+            border-radius:30px;
+            cursor:pointer;
+            font-weight:bold;
+          ">
+          Confirm Date 💖
+        </button>
+      </form>
+    `;
+
+    document.getElementById('dateForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const place = document.getElementById('place').value;
+
+      document.querySelector('.container').innerHTML = `
+        <div class="emoji">🎊</div>
+
+        <h1 style="color:#ff4f87;">It's a Date! 💕</h1>
+
+        <p style="font-size:1.1rem; line-height:1.8;">
+          📅 <b>Date:</b> ${date}<br>
+          🕒 <b>Time:</b> ${time}<br>
+          📍 <b>Place:</b> ${place}
+        </p>
+
+        <h2 style="color:#ff4f87;">
+          I can't wait to see you! 🥰💖
+        </h2>
+
+        <p>
+          Thank you for saying yes 😭💕
+        </p>
+      `;
+    });
+  });
+  let size = 1;
+
+noBtn.addEventListener('mouseover', () => {
+  size += 0.1;
+  yesBtn.style.transform = `scale(${size})`;
+
+  const x = Math.random() * 300 - 150;
+  const y = Math.random() * 300 - 150;
+
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+  </script>
+
+</body>
+</html>
